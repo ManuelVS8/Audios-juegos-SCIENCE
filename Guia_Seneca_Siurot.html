@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guía de gestión administrativa y docente en Séneca · C.E.I.P. Manuel Siurot</title>
+<meta name="description" content="Guía de gestión administrativa y docente en Séneca. Procedimientos habituales para el profesorado del C.E.I.P. Manuel Siurot.">
+<meta name="theme-color" content="#00751A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bitter:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --papel:#F6F7F4;
+  --blanco:#fff;
+  --tinta:#16211B;
+  --tinta2:#4E5B52;
+  --tinta3:#78857C;
+  --verde:#00751A;
+  --verde-osc:#0A4A18;
+  --verde-suave:#E8F2E7;
+  --rojo:#C81014;
+  --rojo-suave:#FCEBEB;
+  --linea:#DCE1D8;
+  --linea2:#EDF0EA;
+  --foco:#0A4A18;
+  --r-motivo:14px;
+  --sombra:0 1px 0 rgba(22,33,27,.04);
+  --nav-w:312px;
+  --fs-cuerpo:1.0625rem;
+  --sans:'Atkinson Hyperlegible','Segoe UI',system-ui,-apple-system,sans-serif;
+  --slab:'Bitter',Georgia,'Times New Roman',serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--papel);color:var(--tinta);
+  font-family:var(--sans);font-size:var(--fs-cuerpo);line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--slab);line-height:1.22;margin:0;font-weight:600}
+a{color:var(--verde-osc)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--foco);outline-offset:2px;border-radius:3px}
+mark{background:#FFF0A8;color:inherit;padding:0 .1em;border-radius:2px}
+
+/* ============ SPLASH ============ */
+#splash{
+  position:fixed;inset:0;z-index:200;background:var(--papel);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;
+  padding:2rem;text-align:center;transition:opacity .55s ease,visibility .55s;
+}
+#splash.oculto{opacity:0;visibility:hidden}
+#splash img{
+  width:min(46vw,190px);height:auto;display:block;
+  animation:entra .9s cubic-bezier(.2,.8,.25,1) both;
+}
+#splash .sp-txt{animation:entra .9s .18s cubic-bezier(.2,.8,.25,1) both}
+#splash h1{font-size:clamp(1.05rem,4.2vw,1.4rem);letter-spacing:-.01em;max-width:20ch;margin-inline:auto}
+#splash p{margin:.35rem 0 0;color:var(--tinta2);font-size:.95rem}
+#splash .barra{width:min(200px,52vw);height:3px;background:var(--linea);border-radius:2px;overflow:hidden;margin-top:.5rem}
+#splash .barra i{display:block;height:100%;width:0;background:var(--verde);animation:carga 1.5s .2s ease-out forwards}
+#splash .saltar{
+  position:absolute;bottom:max(1.6rem,env(safe-area-inset-bottom));
+  background:none;border:0;color:var(--tinta3);font-size:.85rem;cursor:pointer;padding:.6rem 1rem;
+}
+@keyframes entra{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes carga{to{width:100%}}
+
+/* ============ ESTRUCTURA ============ */
+.shell{display:grid;grid-template-columns:var(--nav-w) minmax(0,1fr);min-height:100vh}
+
+/* ---- barra superior (móvil) ---- */
+.topbar{
+  display:none;position:sticky;top:0;z-index:60;
+  background:var(--blanco);border-bottom:1px solid var(--linea);
+  padding:.5rem .75rem;padding-top:max(.5rem,env(safe-area-inset-top));
+  align-items:center;gap:.6rem;
+}
+.tb-marca{
+  display:flex;align-items:center;gap:.6rem;min-width:0;flex:1 1 auto;
+  background:none;border:0;padding:.3rem;margin:-.3rem;cursor:pointer;text-align:left;border-radius:9px;
+}
+.tb-marca:hover{background:var(--linea2)}
+.topbar img{width:34px;height:34px;object-fit:contain;flex:none}
+.topbar .tb-tit{font-family:var(--slab);font-size:.98rem;font-weight:600;line-height:1.15;min-width:0}
+.topbar .tb-tit span{display:block;font-family:var(--sans);font-size:.72rem;color:var(--tinta3);font-weight:400}
+.btn-menu{
+  margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--verde);color:#fff;border:0;border-radius:10px;
+  padding:.55rem .8rem;font-size:.9rem;font-weight:700;cursor:pointer;
+}
+.btn-menu svg{width:17px;height:17px}
+
+/* ---- navegación ---- */
+.nav{
+  background:var(--blanco);border-right:1px solid var(--linea);
+  position:sticky;top:0;height:100vh;overflow-y:auto;overscroll-behavior:contain;
+  padding:1.4rem 1rem 2.5rem;
+}
+.marca{
+  display:flex;gap:.7rem;align-items:center;width:100%;
+  padding:.4rem .35rem 1rem;background:none;border:0;cursor:pointer;text-align:left;
+}
+.marca:hover h1{color:var(--verde-osc)}
+.marca img{width:52px;height:52px;object-fit:contain;flex:none}
+.marca h1{font-size:1.02rem;letter-spacing:-.01em}
+.marca p{margin:.15rem 0 0;font-size:.76rem;color:var(--tinta3);line-height:1.35}
+
+.buscador{position:relative;margin:0 .35rem 1rem}
+.buscador svg{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--tinta3)}
+.buscador input{
+  width:100%;font:inherit;font-size:.94rem;color:var(--tinta);
+  padding:.62rem .62rem .62rem 2.15rem;
+  border:1px solid var(--linea);border-radius:10px;background:var(--papel);
+}
+.buscador input::placeholder{color:var(--tinta3)}
+.buscador input::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+.buscador input:focus{background:#fff;border-color:var(--verde);outline:none;box-shadow:0 0 0 3px var(--verde-suave)}
+.buscador .limpiar{
+  position:absolute;right:.25rem;top:50%;transform:translateY(-50%);
+  width:38px;height:38px;padding:0;border:0;background:none;
+  color:var(--tinta2);cursor:pointer;display:none;place-items:center;border-radius:8px;
+}
+.buscador .limpiar:hover{background:var(--linea2);color:var(--tinta)}
+.buscador.activo .limpiar{display:grid}
+.buscador.activo input{padding-right:2.6rem}
+
+.ver-res{
+  display:none;width:calc(100% - .7rem);margin:0 .35rem .9rem;
+  background:var(--verde);color:#fff;border:0;border-radius:10px;
+  padding:.6rem .8rem;font-size:.9rem;font-weight:700;cursor:pointer;
+}
+.nav-lista{list-style:none;margin:0;padding:0}
+.nav-lista > li{margin-bottom:.15rem}
+.nav-sec{
+  display:flex;align-items:flex-start;gap:.65rem;width:100%;text-align:left;
+  background:none;border:0;cursor:pointer;padding:.5rem .55rem;border-radius:11px;
+  color:var(--tinta);
+}
+.nav-sec:hover{background:var(--linea2)}
+.nav-sec[aria-current="true"]{background:var(--verde-suave)}
+.nav-sec[aria-current="true"] .num{background:var(--verde);color:#fff;border-color:var(--verde)}
+.nav-sec[aria-current="true"] .et{color:var(--verde-osc);font-weight:700}
+.num{
+  flex:none;width:28px;height:28px;border-radius:9px;border:1.5px solid var(--linea);
+  display:grid;place-items:center;font-family:var(--slab);font-weight:700;
+  font-size:.86rem;background:var(--blanco);color:var(--tinta2);margin-top:.05rem;
+}
+.et{font-size:.94rem;line-height:1.35;font-family:var(--slab);font-weight:500}
+.nav-subs{list-style:none;margin:.1rem 0 .5rem;padding:0 0 0 2.45rem}
+.nav-subs a{
+  display:block;text-decoration:none;color:var(--tinta2);font-size:.86rem;
+  padding:.28rem .5rem;border-radius:7px;border-left:2px solid var(--linea);
+}
+.nav-subs a:hover{color:var(--verde-osc);background:var(--linea2);border-left-color:var(--verde)}
+.nav-pie{margin:1.4rem .35rem 0;padding-top:1rem;border-top:1px solid var(--linea);font-size:.76rem;color:var(--tinta3)}
+.nav-pie button{background:none;border:0;color:var(--verde-osc);cursor:pointer;padding:0;font-size:.8rem;text-decoration:underline}
+
+/* ---- contenido ---- */
+.main{padding:2.6rem 2.2rem 5rem;min-width:0}
+.col{max-width:760px;margin:0 auto}
+
+.migas{font-size:.78rem;color:var(--tinta3);margin-bottom:.9rem}
+.migas button{background:none;border:0;color:var(--verde-osc);cursor:pointer;padding:0;text-decoration:underline}
+
+.cab{display:flex;gap:1rem;align-items:flex-start;margin-bottom:.4rem}
+.cab .num{width:44px;height:44px;border-radius:var(--r-motivo);font-size:1.25rem;border-width:2px;border-color:var(--verde);color:var(--verde-osc)}
+.cab h2{font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:-.015em;font-weight:700}
+.cab .sub{margin:.3rem 0 0;color:var(--tinta2);font-size:.95rem}
+.regla{height:1px;background:var(--linea);margin:1.5rem 0 1.8rem;border:0}
+
+.sub-h{
+  font-size:1.12rem;margin:2.4rem 0 .9rem;padding-bottom:.45rem;
+  border-bottom:2px solid var(--verde-suave);scroll-margin-top:5rem;font-weight:600;
+}
+.sub-h:first-of-type{margin-top:0}
+.sub-h .ind{color:var(--verde);font-weight:700;margin-right:.45rem}
+
+p.txt{margin:0 0 1rem;max-width:66ch}
+
+/* listas de datos */
+ul.datos{list-style:none;margin:0 0 1.2rem;padding:0;max-width:68ch}
+ul.datos li{position:relative;padding:.1rem 0 .1rem 1.15rem;margin-bottom:.6rem}
+ul.datos li::before{
+  content:"";position:absolute;left:0;top:.72em;width:6px;height:6px;
+  border-radius:2px;background:var(--verde);
+}
+ul.datos b.et-i{font-weight:700;color:var(--tinta)}
+
+/* pasos numerados */
+ol.pasos{list-style:none;counter-reset:p;margin:0 0 1.4rem;padding:0;max-width:68ch}
+ol.pasos li{
+  counter-increment:p;position:relative;padding:.55rem .7rem .55rem 3rem;margin-bottom:.35rem;
+  border-radius:10px;cursor:pointer;transition:background .15s;
+}
+ol.pasos li::before{
+  content:counter(p);position:absolute;left:.6rem;top:.5rem;
+  width:26px;height:26px;border-radius:8px;border:1.5px solid var(--linea);
+  display:grid;place-items:center;font-family:var(--slab);font-weight:700;font-size:.82rem;
+  color:var(--tinta2);background:var(--blanco);transition:.15s;
+}
+ol.pasos li:hover{background:var(--linea2)}
+ol.pasos li.hecho{color:var(--tinta3)}
+ol.pasos li.hecho .cuerpo{text-decoration:line-through;text-decoration-color:var(--tinta3)}
+ol.pasos li.hecho::before{
+  content:"✓";background:var(--verde);border-color:var(--verde);color:#fff;font-size:.9rem;
+}
+.pasos-ayuda{font-size:.78rem;color:var(--tinta3);margin:-.9rem 0 1.2rem}
+
+/* ruta en Séneca — elemento protagonista */
+.ruta{
+  background:var(--blanco);border:1px solid var(--linea);border-radius:var(--r-motivo);
+  padding:.85rem .95rem;margin:0 0 1.4rem;box-shadow:var(--sombra);
+}
+.ruta .r-tit{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.7rem;font-weight:700;color:var(--verde-osc);
+  background:var(--verde-suave);border-radius:6px;padding:.2rem .5rem;margin-bottom:.6rem;
+}
+.ruta .r-tit svg{width:13px;height:13px}
+.cadena{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem}
+.cadena .paso-r{
+  font-family:var(--slab);font-weight:600;font-size:.88rem;color:var(--tinta);
+  background:var(--papel);border:1px solid var(--linea);border-radius:7px;padding:.28rem .55rem;
+}
+.cadena .paso-r:last-child{background:var(--verde);border-color:var(--verde);color:#fff}
+.cadena .sep{color:var(--verde);font-weight:700;flex:none}
+.cadena .paso-r:last-child mark{background:#fff;color:var(--verde-osc)}
+
+/* avisos */
+.aviso{
+  border-left:4px solid var(--verde);background:var(--verde-suave);
+  border-radius:0 11px 11px 0;padding:.85rem 1rem;margin:0 0 1.4rem;max-width:68ch;
+}
+.aviso.rojo{border-left-color:var(--rojo);background:var(--rojo-suave)}
+.aviso .a-tit{
+  font-family:var(--slab);font-weight:700;font-size:.83rem;color:var(--verde-osc);
+  display:block;margin-bottom:.2rem;
+}
+.aviso.rojo .a-tit{color:var(--rojo)}
+.aviso p{margin:0;font-size:.96rem}
+
+/* impresos */
+.imp{
+  font-family:var(--slab);font-weight:700;font-size:.9em;
+  background:var(--blanco);border:1.5px solid var(--verde);color:var(--verde-osc);
+  border-radius:6px;padding:.03em .38em;white-space:nowrap;
+}
+
+/* ---- inicio ---- */
+.hero{margin-bottom:2.2rem}
+.hero h2{font-size:clamp(1.4rem,5vw,2.05rem);letter-spacing:-.02em;font-weight:700;max-width:22ch}
+.hero p{margin:.7rem 0 0;color:var(--tinta2);max-width:56ch}
+.indice{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
+.indice li{border-bottom:1px solid var(--linea)}
+.indice button{
+  display:flex;gap:1rem;align-items:flex-start;width:100%;text-align:left;
+  background:none;border:0;cursor:pointer;padding:1.05rem .5rem;color:var(--tinta);
+}
+.indice button:hover{background:var(--blanco)}
+.indice button:hover .num{border-color:var(--verde);color:var(--verde-osc)}
+.indice .num{width:38px;height:38px;border-radius:12px;font-size:1.05rem}
+.indice h3{font-size:1.05rem;font-weight:600}
+.indice p{margin:.2rem 0 0;font-size:.89rem;color:var(--tinta2);line-height:1.5;max-width:52ch}
+
+/* ---- resultados ---- */
+.res-lista{list-style:none;margin:0;padding:0}
+.res-lista li{border-bottom:1px solid var(--linea)}
+.res-lista button{display:block;width:100%;text-align:left;background:none;border:0;cursor:pointer;padding:.95rem .5rem;color:var(--tinta)}
+.res-lista button:hover{background:var(--blanco)}
+.res-lista .r-ubi{font-size:.76rem;color:var(--verde-osc);font-weight:700;display:block;margin-bottom:.15rem}
+.res-lista .r-tit2{font-family:var(--slab);font-weight:600;font-size:1rem;display:block}
+.res-lista .r-frag{font-size:.87rem;color:var(--tinta2);margin:.2rem 0 0;display:block}
+.vacio{padding:2.5rem .5rem;text-align:center;color:var(--tinta2)}
+.vacio strong{display:block;font-family:var(--slab);font-size:1.1rem;color:var(--tinta);margin-bottom:.3rem}
+
+/* ---- paginación ---- */
+.pag{display:flex;gap:.7rem;margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--linea);flex-wrap:wrap}
+.pag button{
+  flex:0 1 320px;text-align:left;background:var(--blanco);border:1px solid var(--linea);
+  border-radius:12px;padding:.75rem .9rem;cursor:pointer;
+}
+.pag button:hover{border-color:var(--verde)}
+.pag small{display:block;color:var(--tinta3);font-size:.74rem;margin-bottom:.1rem}
+.pag span{font-family:var(--slab);font-weight:600;font-size:.93rem}
+.pag .sig{text-align:right;margin-left:auto}
+
+/* ---- drawer móvil ---- */
+.velo{display:none}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:960px){
+  .shell{display:block}
+  .topbar{display:flex}
+  .nav{
+    position:fixed;top:0;left:0;bottom:0;width:min(88vw,350px);height:100dvh;z-index:90;
+    transform:translateX(-102%);visibility:hidden;
+    transition:transform .28s cubic-bezier(.3,.8,.3,1),visibility .28s;
+    border-right:1px solid var(--linea);box-shadow:0 0 40px rgba(22,33,27,.16);
+    padding-top:max(1.4rem,env(safe-area-inset-top));
+  }
+  body.menu-abierto .nav{transform:none;visibility:visible}
+  .velo{
+    display:block;position:fixed;inset:0;z-index:80;background:rgba(22,33,27,.52);
+    opacity:0;visibility:hidden;transition:.28s;border:0;width:100%;
+  }
+  body.menu-abierto .velo{opacity:1;visibility:visible}
+  body.menu-abierto{overflow:hidden}
+  .ver-res.hay{display:block}
+  .main{padding:1.6rem 1.15rem 4rem}
+  .cab{gap:.75rem}
+  .cab .num{width:38px;height:38px;font-size:1.05rem}
+  .sub-h{margin-top:2rem}
+  .cadena{gap:.35rem .3rem}
+  .cadena .paso-r{font-size:.85rem}
+  .pag .sig{text-align:left}
+}
+@media (max-width:420px){
+  :root{--fs-cuerpo:1rem}
+  .main{padding:1.3rem .9rem 4rem}
+}
+
+/* ============ PREFERENCIAS ============ */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  #splash .barra i{width:100%}
+}
+
+/* ============ IMPRESIÓN ============ */
+#imprimible{display:none}
+@media print{
+  #splash,.topbar,.nav,.velo,.pag,.migas,.buscador{display:none!important}
+  body{background:#fff;font-size:10.5pt}
+  .shell{display:none!important}
+  #imprimible{display:block;padding:0}
+  #imprimible .cab{break-after:avoid}
+  #imprimible section{break-inside:auto;margin-bottom:1.6rem}
+  .ruta,.aviso,ol.pasos li{break-inside:avoid}
+  .sub-h{break-after:avoid}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== SPLASH ===== -->
+<div id="splash" role="status" aria-label="Cargando la guía">
+  <img src="https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Web_Siurot/Logo_web.png" alt="Logotipo del C.E.I.P. Manuel Siurot">
+  <div class="sp-txt">
+    <h1>Guía de gestión administrativa y docente en Séneca</h1>
+    <p>C.E.I.P. Manuel Siurot · La Palma del Condado</p>
+  </div>
+  <div class="barra" aria-hidden="true"><i></i></div>
+  <button class="saltar" id="saltarSplash">Entrar ahora</button>
+</div>
+
+<!-- ===== APP ===== -->
+<header class="topbar">
+  <button class="tb-marca" data-inicio type="button" aria-label="Ir al inicio">
+    <img src="https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Web_Siurot/Logo_web.png" alt="">
+    <div class="tb-tit">Guía de Séneca<span>C.E.I.P. Manuel Siurot</span></div>
+  </button>
+  <button class="btn-menu" id="btnMenu" aria-expanded="false" aria-controls="nav">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    Índice
+  </button>
+</header>
+
+<button class="velo" id="velo" aria-label="Cerrar el índice" tabindex="-1"></button>
+
+<div class="shell">
+  <nav class="nav" id="nav" aria-label="Índice de la guía">
+    <button class="marca" data-inicio type="button" aria-label="Ir al inicio">
+      <img src="https://raw.githubusercontent.com/ManuelVS8/Audios-juegos-SCIENCE/refs/heads/main/Web_Siurot/Logo_web.png" alt="Logotipo del C.E.I.P. Manuel Siurot">
+      <div>
+        <h1>Guía de gestión administrativa y docente en Séneca</h1>
+        <p>Procedimientos habituales · Guía rápida de consulta</p>
+      </div>
+    </button>
+
+    <div class="buscador" id="cajaBuscar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="buscar" placeholder="Buscar: baja, actas, préstamo…" aria-label="Buscar en la guía" autocomplete="off">
+      <button class="limpiar" id="limpiarBuscar" aria-label="Borrar la búsqueda">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <button class="ver-res" id="verRes" hidden>Ver resultados</button>
+
+    <ul class="nav-lista" id="navLista"></ul>
+
+    <div class="nav-pie">
+      Documento interno del centro.<br>
+      <button id="btnImprimir">Imprimir la guía completa</button>
+    </div>
+  </nav>
+
+  <main class="main" id="main" tabindex="-1"></main>
+</div>
+
+<div id="imprimible"></div>
+
+<script>
+/* =========================================================
+   CONTENIDO DE LA GUÍA
+   Para actualizar la guía basta con editar este objeto DATOS.
+   Marcas admitidas dentro del texto:
+     {{L1A}} → impreso destacado      *texto* → negrita
+   Bloques: p | lista | pasos | ruta | aviso
+   ========================================================= */
+const DATOS = [
+  {
+    id:"licencias", n:1, titulo:"Licencias y permisos",
+    resumen:"Consulta médica, baja por enfermedad, acompañamiento a familiares y firma de anexos.",
+    subs:[
+      { id:"consulta-corta", titulo:"Motivo: Consulta médica o enfermedad de corta duración (3 días)", bloques:[
+        {t:"lista", items:[
+          {et:"Aviso previo", tx:"avisar a Cristina (vale para 3 días)."},
+          {et:"{{L1A}}", tx:"se rellena después de asistir, para poder adjuntar el justificante."}
+        ]}
+      ]},
+      { id:"baja-incapacidad", titulo:"Motivo: Enfermedad que da lugar a la incapacidad (baja). Más de 3 días", bloques:[
+        {t:"lista", items:[
+          {et:"{{L1B}} (si no me recupero)", tx:"voy por la baja, con fecha de inicio el primer día de enfermedad."},
+          {tx:"Para la baja hay que llevar un modelo de *MUFACE* (en El Valle lo tienen)."}
+        ]}
+      ]},
+      { id:"familiar", titulo:"Ir al médico con un familiar", bloques:[
+        {t:"lista", items:[
+          {et:"Permiso", tx:"usamos el {{P13.1}} (deber inexcusable). Se rellena antes."},
+          {et:"Documentación", tx:"cuando tengo el PDF con el justificante, se adjunta junto al libro de familia cuando es tu hijo. Si es esposo o padres, no es necesario el libro de familia."}
+        ]},
+        {t:"aviso", rojo:true, tit:"NOTA · Procedimiento de firma", tx:"Se rellena y se firma el anexo para que llegue al Equipo directivo: en el caso 3, antes de ir; en el 1, cuando te incorporas. En el caso del 3, en el momento que te den la baja, anexando el parte de baja. Se le da a «solicitar» y se va a «documentos generados» y ahí se firma. *NO EN LA BANDEJA DE FIRMAS.*"}
+      ]}
+    ]
+  },
+  {
+    id:"refuerzo", n:2, titulo:"Programas de refuerzo",
+    resumen:"Propuesta del PRA en equipo docente, ruta en Séneca, procedimiento y seguimiento.",
+    subs:[
+      { id:"refuerzo-todo", titulo:null, bloques:[
+        {t:"lista", items:[
+          {et:"Destinado a", tx:"niños con algún área no superada o si plantean alguna dificultad."}
+        ]},
+        {t:"ruta", pasos:["Alumnado","Gestión de la orientación","Organización de la respuesta educativa","Programas de atención a la diversidad","Programas de refuerzo del aprendizaje"]},
+        {t:"pasos", tit:"Procedimiento", items:[
+          "Reunión Equipo Docente en el que se propone al alumno/a para el PRA.",
+          "Se hace el PRA en Séneca. *IMPORTANTE*: seleccionar personal implicado.",
+          "Cuando esté todo completado, se bloquea.",
+          "Se cita a las familias.",
+          "Se genera, se firma (en Séneca) y se manda a la J. Estudios."
+        ]},
+        {t:"lista", items:[{et:"Seguimiento", tx:"en enero y en junio, tras la evaluación ordinaria."}]}
+      ]}
+    ]
+  },
+  {
+    id:"acs", n:3, titulo:"ACS",
+    resumen:"Quién abre las adaptaciones y quién las cumplimenta.",
+    subs:[
+      { id:"acs-todo", titulo:null, bloques:[
+        {t:"lista", items:[
+          {tx:"Las abre *Noemí* y ella selecciona a los docentes implicados, que son quienes la rellenan."}
+        ]}
+      ]}
+    ]
+  },
+  {
+    id:"indicios", n:4, titulo:"Detección de indicios (NEAE / ACS)",
+    resumen:"Aviso previo a jefatura, cuestionario de detección, plazos y derivación a orientación.",
+    subs:[
+      { id:"indicios-todo", titulo:null, bloques:[
+        {t:"aviso", tit:"Cuándo se hace", tx:"Hecho en octubre."},
+        {t:"ruta", pasos:["Alumnado","Gestión de la orientación","Detección","Detección de indicios NEAE"]},
+        {t:"pasos", tit:"Procedimiento", items:[
+          "*IMPORTANTE*: cuando se vaya a iniciar el procedimiento es necesario avisar a la jefa de estudios.",
+          "Al entrar en el documento, se rellena el cuestionario de detección. Al terminar, validar, generar y firmar.",
+          "Se rellena el acta de equipo docente previamente convocado.",
+          "Se van siguiendo los pasos que aparecen en Séneca.",
+          "Entre el primer equipo docente y el segundo debe de pasar al menos 2 meses.",
+          "Cuando las medidas no dan la respuesta deseada, se deriva a la evaluación psicopedagógica con la orientadora, lo que no quiere decir que se le vaya a realizar. La orientadora valora las medidas y es la que decide."
+        ]},
+        {t:"aviso", rojo:true, tit:"NOTA IMPORTANTE", tx:"A las familias hay que dejarles claro que el hecho de iniciar un protocolo *NO* implica que la orientadora le vaya a hacer la evaluación psicopedagógica."}
+      ]}
+    ]
+  },
+  {
+    id:"actas", n:5, titulo:"Actas",
+    resumen:"Evaluación, equipos docentes, ciclo/ETCP y tutoría: dónde se rellenan y quién firma.",
+    subs:[
+      { id:"actas-evaluacion", titulo:"Actas de evaluación", bloques:[
+        {t:"lista", items:[
+          {tx:"Se rellena por todo el equipo docente en *Drive*, cada especialista aporta su parte en el acta (carpeta equipo docente)."},
+          {tx:"Se avisa a Cristina, la revisa y nos la envía en PDF para mandar a firmar al equipo docente. Después se adjunta a la sesión de evaluación en Séneca."}
+        ]}
+      ]},
+      { id:"actas-equipos", titulo:"Actas equipos docentes", bloques:[
+        {t:"lista", items:[
+          {tx:"Se rellena en *Drive* y se avisa a Cristina. Cristina nos la envía para firmar (carpeta equipo docente, solo la firma el tutor/a)."}
+        ]}
+      ]},
+      { id:"actas-ciclo", titulo:"Actas de ciclo, ETCP y de comisiones", bloques:[
+        {t:"lista", items:[
+          {tx:"Respetar el formato y enviar a *Noemí* por email."},
+          {tx:"Solo la firma el coordinador."},
+          {tx:"Se adjuntan los documentos donde el ciclo haya redactado."}
+        ]}
+      ]},
+      { id:"actas-tutoria", titulo:"Actas de tutoría", bloques:[
+        {t:"ruta", pasos:["Alumnado","Gestión de tutoría","Ajuste de tutoría"]},
+        {t:"lista", items:[
+          {et:"Horario", tx:"de 6 a 7. Establecemos los tramos (15', 20'...). Si prevemos que no vamos a poder atender a una familia, se pueden bloquear tramos."},
+          {et:"Firma", tx:"si las familias o el tutor no confirman la asistencia, no se podrá generar el acta. Se firma y le llega a las familias para firmar."},
+          {et:"Horario especial", tx:"cuando se atiende a una familia en «horario especial» (recreo, etc.), le damos a *Nuevo*, seleccionamos alumno y le damos a selección manual de fecha y cita."}
+        ]}
+      ]}
+    ]
+  },
+  {
+    id:"biblioweb", n:6, titulo:"Biblioweb Séneca",
+    resumen:"Perfil de acceso, préstamos y devoluciones paso a paso.",
+    subs:[
+      { id:"biblio-acceso", titulo:"Acceso inicial", bloques:[
+        {t:"aviso", rojo:true, tit:"Nota interna", tx:"Los préstamos los hacen los tutores. No se registran las colecciones para el aula."},
+        {t:"p", tx:"Entra en Séneca y selecciona el perfil de *Ayudante de biblioteca*. En el menú lateral, ve a Biblioteca › Gestión de préstamos."},
+        {t:"ruta", pasos:["Biblioteca","Gestión de préstamos"]}
+      ]},
+      { id:"biblio-prestamo", titulo:"Realizar un préstamo", bloques:[
+        {t:"pasos", items:[
+          "En la pantalla de Gestión de préstamos, haz clic en el botón *Nuevo préstamo* (icono con un folio y el signo + en la esquina superior derecha).",
+          "*Seleccionar lector*: escribe el nombre del alumno/a en Búsqueda por nombre o introduce su código en Búsqueda por código. Selecciona al alumno/a en la lista desplegable.",
+          "*Seleccionar ejemplar*: escribe el título del libro en Búsqueda por título (o su código de ejemplar). Haz clic en el título correspondiente y pulsa el botón Añadir.",
+          "*Confirmar*: verifica que el ejemplar aparece en la lista inferior con la fecha de devolución correspondiente. Haz clic en el icono del check (Aceptar) arriba a la derecha y confirma en el mensaje emergente."
+        ]}
+      ]},
+      { id:"biblio-devolucion", titulo:"Registrar una devolución", bloques:[
+        {t:"pasos", items:[
+          "Desde Biblioteca › Gestión de préstamos, busca el préstamo en la lista general o usa el buscador de la parte superior.",
+          "Haz clic sobre el nombre del alumno/a o el título del libro y selecciona la opción *Detalle*.",
+          "En el apartado Estado del préstamo, ve al desplegable *Modificar estado a*.",
+          "Selecciona la opción *Devuelto* (o Renovado / Anulado si procede).",
+          "Haz clic en el icono del check (Aceptar) en la esquina superior derecha para guardar los cambios y confirma la acción."
+        ]}
+      ]}
+    ]
+  }
+];
+
+/* ========================= UTILIDADES ========================= */
+const $ = (s,c=document)=>c.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+const plano = s => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+
+/* {{impreso}} y *negrita* */
+function inline(t){
+  return esc(t)
+    .replace(/\{\{([^}]+)\}\}/g,'<b class="imp">$1</b>')
+    .replace(/\*([^*]+)\*/g,'<strong>$1</strong>');
+}
+
+const ICONO_RUTA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/></svg>';
+
+/* ========================= RENDER DE BLOQUES ========================= */
+let pistaMostrada = false;
+function pistaPasos(){ if(pistaMostrada) return false; pistaMostrada = true; return true; }
+
+function bloqueHTML(b){
+  switch(b.t){
+    case "p":
+      return `<p class="txt">${inline(b.tx)}</p>`;
+    case "lista":
+      return `<ul class="datos">${b.items.map(i =>
+        `<li>${i.et ? `<b class="et-i">${inline(i.et)}:</b> ` : ''}${inline(i.tx)}</li>`).join('')}</ul>`;
+    case "pasos":
+      return (b.tit ? `<h4 class="sub-h" style="font-size:1rem;border:0;margin-bottom:.5rem">${esc(b.tit)}</h4>` : '')
+        + `<ol class="pasos">${b.items.map(i =>
+            `<li><span class="cuerpo">${inline(i)}</span></li>`).join('')}</ol>`
+        + (pistaPasos() ? `<p class="pasos-ayuda">Toca cada paso para marcarlo mientras lo haces.</p>` : '');
+    case "ruta":
+      return `<div class="ruta"><span class="r-tit">${ICONO_RUTA} Ruta en Séneca</span>
+        <div class="cadena">${b.pasos.map((p,i) =>
+          (i ? '<span class="sep" aria-hidden="true">›</span>' : '') + `<span class="paso-r">${esc(p)}</span>`).join('')}</div></div>`;
+    case "aviso":
+      return `<div class="aviso${b.rojo ? ' rojo' : ''}"><span class="a-tit">${esc(b.tit)}</span><p>${inline(b.tx)}</p></div>`;
+  }
+  return '';
+}
+
+function textoPlano(sub){
+  let t = (sub.titulo || '') + ' ';
+  sub.bloques.forEach(b=>{
+    if(b.t==="p") t += b.tx + ' ';
+    if(b.t==="lista") b.items.forEach(i => t += (i.et ? i.et+': ' : '') + i.tx + ' ');
+    if(b.t==="pasos") t += (b.tit||'') + ' ' + b.items.join(' ');
+    if(b.t==="ruta") t += b.pasos.join(' ') + ' ';
+    if(b.t==="aviso") t += b.tit + ' ' + b.tx + ' ';
+  });
+  return t.replace(/\{\{|\}\}|\*/g,'');
+}
+
+/* ========================= ESTADO ========================= */
+const estado = { vista:"inicio", seccion:null, consulta:"" };
+
+/* ========================= NAVEGACIÓN LATERAL ========================= */
+function pintarNav(){
+  $("#navLista").innerHTML = DATOS.map(s => `
+    <li>
+      <button class="nav-sec" data-sec="${s.id}" aria-current="${estado.seccion===s.id}">
+        <span class="num">${s.n}</span><span class="et">${esc(s.titulo)}</span>
+      </button>
+      ${estado.seccion===s.id && s.subs.some(x=>x.titulo) ? `
+        <ul class="nav-subs">${s.subs.filter(x=>x.titulo).map(x =>
+          `<a href="#/${s.id}/${x.id}">${esc(x.titulo)}</a>`).join('')}</ul>` : ''}
+    </li>`).join('');
+}
+
+/* ========================= VISTAS ========================= */
+function vistaInicio(){
+  return `
+  <div class="col">
+    <div class="hero">
+      <h2>Guía de gestión administrativa y docente en Séneca</h2>
+      <p>Elige un apartado o usa el buscador.</p>
+    </div>
+    <ul class="indice">
+      ${DATOS.map(s => `
+        <li><button data-sec="${s.id}">
+          <span class="num">${s.n}</span>
+          <span><h3>${esc(s.titulo)}</h3><p>${esc(s.resumen)}</p></span>
+        </button></li>`).join('')}
+    </ul>
+  </div>`;
+}
+
+function vistaSeccion(id){
+  const i = DATOS.findIndex(s=>s.id===id);
+  const s = DATOS[i], ant = DATOS[i-1], sig = DATOS[i+1];
+  const cuerpo = s.subs.map(sub => `
+    ${sub.titulo ? `<h3 class="sub-h" id="${sub.id}"><span class="ind">${s.n}.${s.subs.filter(x=>x.titulo).indexOf(sub)+1}</span>${esc(sub.titulo)}</h3>` : ''}
+    ${sub.bloques.map(bloqueHTML).join('')}`).join('');
+
+  return `
+  <div class="col">
+    <p class="migas"><button data-inicio>Índice</button> › Apartado ${s.n}</p>
+    <div class="cab">
+      <span class="num">${s.n}</span>
+      <div><h2>${esc(s.titulo)}</h2><p class="sub">${esc(s.resumen)}</p></div>
+    </div>
+    <hr class="regla">
+    ${cuerpo}
+    <nav class="pag" aria-label="Navegación entre apartados">
+      ${ant ? `<button data-sec="${ant.id}"><small>Anterior</small><span>‹ ${esc(ant.titulo)}</span></button>` : ''}
+      ${sig ? `<button class="sig" data-sec="${sig.id}"><small>Siguiente</small><span>${esc(sig.titulo)} ›</span></button>` : ''}
+    </nav>
+  </div>`;
+}
+
+function buscar(q){
+  const p = plano(q), res = [];
+  DATOS.forEach(s => s.subs.forEach(sub => {
+    const txt = textoPlano(sub), tp = plano(txt);
+    const pos = tp.indexOf(p);
+    if(pos > -1 || plano(s.titulo).includes(p)){
+      let base = txt;
+      if(sub.titulo && base.startsWith(sub.titulo)) base = base.slice(sub.titulo.length).trim();
+      const rel = plano(base).indexOf(p);
+      const ini = Math.max(0, (rel>-1?rel:0) - 45);
+      res.push({
+        sec:s, sub,
+        frag:(ini>0?'…':'') + base.slice(ini, ini+150).trim() + '…'
+      });
+    }
+  }));
+  return res;
+}
+
+function vistaResultados(q){
+  const res = buscar(q);
+  if(!res.length) return `<div class="col"><div class="vacio">
+      <strong>Sin resultados para «${esc(q)}»</strong>
+      Prueba con otra palabra: baja, permiso, refuerzo, acta, tutoría, préstamo.
+    </div></div>`;
+  return `<div class="col">
+    <p class="migas">${res.length} ${res.length===1?'resultado':'resultados'} para «${esc(q)}»</p>
+    <ul class="res-lista">${res.map(r => `
+      <li><button data-sec="${r.sec.id}" data-sub="${r.sub.id}">
+        <span class="r-ubi">${r.sub.titulo ? `${r.sec.n}. ${esc(r.sec.titulo)}` : `Apartado ${r.sec.n}`}</span>
+        <span class="r-tit2">${esc(r.sub.titulo || r.sec.titulo)}</span>
+        <span class="r-frag">${esc(r.frag)}</span>
+      </button></li>`).join('')}</ul></div>`;
+}
+
+/* ========================= RESALTADO ========================= */
+const VARIANTES = {a:'aáàäâ',e:'eéèëê',i:'iíìïî',o:'oóòöô',u:'uúùüû',n:'nñ',c:'cç'};
+function regexBusqueda(q){
+  const patron = q.split('').map(ch => {
+    const b = ch.toLowerCase();
+    if(VARIANTES[b]) return `[${VARIANTES[b]}${VARIANTES[b].toUpperCase()}]`;
+    return ch.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  }).join('');
+  return new RegExp(patron,'gi');
+}
+function resaltar(cont, q){
+  if(!q || q.length < 2) return;
+  const re = regexBusqueda(q);
+  const walker = document.createTreeWalker(cont, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => n.parentElement.closest('mark,script,style') ? 2 : (re.test(n.nodeValue) ? 1 : 2)
+  });
+  const nodos = []; let n;
+  while(n = walker.nextNode()) nodos.push(n);
+  nodos.forEach(nodo => {
+    const frag = document.createDocumentFragment();
+    let ult = 0; const r = regexBusqueda(q); let m;
+    while(m = r.exec(nodo.nodeValue)){
+      frag.append(nodo.nodeValue.slice(ult, m.index));
+      const mk = document.createElement('mark'); mk.textContent = m[0];
+      frag.append(mk); ult = m.index + m[0].length;
+      if(!m[0]) break;
+    }
+    frag.append(nodo.nodeValue.slice(ult));
+    nodo.replaceWith(frag);
+  });
+}
+
+/* ========================= RENDER PRINCIPAL ========================= */
+let subDestino = null;
+
+function pintar(){
+  const main = $("#main");
+  pistaMostrada = false;
+  if(estado.vista === "resultados") main.innerHTML = vistaResultados(estado.consulta);
+  else if(estado.vista === "seccion") main.innerHTML = vistaSeccion(estado.seccion);
+  else main.innerHTML = vistaInicio();
+
+  if(estado.vista === "seccion" && estado.consulta) resaltar(main, estado.consulta);
+  pintarNav();
+
+  if(subDestino){
+    const el = document.getElementById(subDestino);
+    if(el) el.scrollIntoView({block:'start', behavior:'auto'});
+    subDestino = null;
+  } else {
+    window.scrollTo(0,0);
+  }
+}
+
+/* ========================= RUTAS ========================= */
+function irA(secId, subId){
+  subDestino = subId || null;
+  location.hash = '#/' + secId + (subId ? '/'+subId : '');
+}
+function leerHash(){
+  const p = location.hash.replace(/^#\/?/,'').split('/').filter(Boolean);
+  if(p[0] && DATOS.some(s=>s.id===p[0])){
+    estado.vista = "seccion"; estado.seccion = p[0];
+    if(p[1]) subDestino = p[1];
+  } else {
+    estado.vista = "inicio"; estado.seccion = null;
+  }
+  pintar();
+  cerrarMenu();
+}
+window.addEventListener('hashchange', leerHash);
+
+function irInicio(){
+  const campo = $("#buscar");
+  campo.value = ''; estado.consulta = '';
+  $("#cajaBuscar").classList.remove('activo');
+  $("#verRes").hidden = true; $("#verRes").classList.remove('hay');
+  if(location.hash && location.hash !== '#/'){
+    location.hash = '#/';
+  } else {
+    estado.vista = "inicio"; estado.seccion = null;
+    pintar(); cerrarMenu();
+  }
+}
+
+/* ========================= MENÚ MÓVIL ========================= */
+function abrirMenu(){
+  document.body.classList.add('menu-abierto');
+  $("#btnMenu").setAttribute('aria-expanded','true');
+  $("#buscar").focus({preventScroll:true});
+}
+function cerrarMenu(){
+  document.body.classList.remove('menu-abierto');
+  $("#btnMenu").setAttribute('aria-expanded','false');
+}
+$("#btnMenu").addEventListener('click', ()=>
+  document.body.classList.contains('menu-abierto') ? cerrarMenu() : abrirMenu());
+$("#velo").addEventListener('click', cerrarMenu);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') cerrarMenu(); });
+
+/* ========================= EVENTOS ========================= */
+document.addEventListener('click', e=>{
+  const paso = e.target.closest('ol.pasos li');
+  if(paso){ paso.classList.toggle('hecho'); return; }
+
+  const btn = e.target.closest('[data-sec]');
+  if(btn){ irA(btn.dataset.sec, btn.dataset.sub); return; }
+
+  if(e.target.closest('[data-inicio]')){ irInicio(); }
+});
+
+const entrada = $("#buscar");
+let temporizador;
+entrada.addEventListener('input', ()=>{
+  clearTimeout(temporizador);
+  temporizador = setTimeout(()=>{
+    const q = entrada.value.trim();
+    estado.consulta = q;
+    $("#cajaBuscar").classList.toggle('activo', q.length>0);
+    if(q.length >= 2){
+      estado.vista = "resultados"; pintar();
+      const n = buscar(q).length;
+      const vr = $("#verRes");
+      vr.hidden = false;
+      vr.classList.add('hay');
+      vr.textContent = n ? `Ver ${n} ${n===1?'resultado':'resultados'}` : 'Sin resultados';
+    } else {
+      $("#verRes").hidden = true; $("#verRes").classList.remove('hay');
+      leerHash();
+    }
+  }, 160);
+});
+entrada.addEventListener('keydown', e=>{
+  if(e.key === 'Enter'){ e.preventDefault(); entrada.blur(); cerrarMenu(); }
+});
+$("#verRes").addEventListener('click', ()=>{ entrada.blur(); cerrarMenu(); });
+$("#limpiarBuscar").addEventListener('click', ()=>{
+  entrada.value = ''; estado.consulta = '';
+  $("#cajaBuscar").classList.remove('activo');
+  $("#verRes").hidden = true; $("#verRes").classList.remove('hay');
+  leerHash(); entrada.focus();
+});
+
+/* ========================= IMPRESIÓN ========================= */
+function prepararImpresion(){
+  pistaMostrada = true;
+  $("#imprimible").innerHTML = `
+    <div class="col"><h2 style="font-size:1.5rem;margin-bottom:.3rem">Guía de gestión administrativa y docente en Séneca</h2>
+    <p class="txt" style="color:#4E5B52">C.E.I.P. Manuel Siurot · La Palma del Condado</p><hr class="regla">` +
+    DATOS.map(s => `<section>
+      <div class="cab"><span class="num">${s.n}</span><div><h2 style="font-size:1.35rem">${esc(s.titulo)}</h2></div></div>
+      ${s.subs.map(sub => `
+        ${sub.titulo ? `<h3 class="sub-h">${esc(sub.titulo)}</h3>` : ''}
+        ${sub.bloques.map(bloqueHTML).join('')}`).join('')}
+    </section>`).join('') + `</div>`;
+}
+window.addEventListener('beforeprint', prepararImpresion);
+$("#btnImprimir").addEventListener('click', ()=>{ prepararImpresion(); window.print(); });
+
+/* ========================= ARRANQUE ========================= */
+leerHash();
+const splash = $("#splash");
+function quitarSplash(){
+  splash.classList.add('oculto');
+  setTimeout(()=>splash.remove(), 700);
+}
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+setTimeout(quitarSplash, reduce ? 350 : 2000);
+$("#saltarSplash").addEventListener('click', quitarSplash);
+splash.addEventListener('click', quitarSplash);
+</script>
+</body>
+</html>
